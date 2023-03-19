@@ -23,8 +23,7 @@ The `app` object emits the following events:
 Emitted when the application has finished basic startup. On Windows and Linux,
 the `will-finish-launching` event is the same as the `ready` event; on macOS,
 this event represents the `applicationWillFinishLaunching` notification of
-`NSApplication`. You would usually set up listeners for the `open-file` and
-`open-url` events here, and start the crash reporter and auto updater.
+`NSApplication`.
 
 In most cases, you should do everything in the `ready` event handler.
 
@@ -127,8 +126,6 @@ Returns:
 Emitted when the user wants to open a URL with the application. Your application's
 `Info.plist` file must define the URL scheme within the `CFBundleURLTypes` key, and
 set `NSPrincipalClass` to `AtomApplication`.
-
-You should call `event.preventDefault()` if you want to handle this event.
 
 As with the `open-file` event, be sure to register a listener for the `open-url`
 event early in your application startup to detect if the the application being
@@ -1357,7 +1354,7 @@ This API must be called after the `ready` event is emitted.
 
 ### `app.showAboutPanel()`
 
-Show the app's about panel options. These options can be overridden with `app.setAboutPanelOptions(options)`.
+Show the app's about panel options. These options can be overridden with `app.setAboutPanelOptions(options)`. This function runs asynchronously.
 
 ### `app.setAboutPanelOptions(options)`
 
@@ -1566,5 +1563,4 @@ an ARM64 translator (like the macOS
 or Windows [WOW](https://en.wikipedia.org/wiki/Windows_on_Windows)).
 
 You can use this property to prompt users to download the arm64 version of
-your application when they are running the x64 version under Rosetta
-incorrectly.
+your application when they are mistakenly running the x64 version under Rosetta or WOW.
